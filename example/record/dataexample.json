@@ -1,0 +1,17 @@
+{
+	"copyPastedData": "null",
+	"eventTime": 1506500375514,
+	"isBackspace": "false",
+	"isDelete": "false",
+	"objectId": "followTextarea",
+	"offsetX": "null",
+	"offsetY": "null",
+	"scrollLeft": 0,
+	"scrollTop": 0,
+	"startTime": "1506500373192",
+	"symbol": "o",
+	"tag:": "TEXTAREA",
+	"timeSpent:": 2322,
+	"type:": "keyup",
+	"value:": "Hello"
+}
