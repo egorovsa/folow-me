@@ -50,34 +50,34 @@
 	font-size: 12px;
 	left: 0;
 	top: 0;
-}
 
-.shadower-player-mouse::before {
-	content: 'Click';
-	position: absolute;
-	left: 20px;
-	font-size: 14px;
-	color: green;
-	font-weight: bold;
-	opacity: 0;
-	transition: 0.2s opacity;
-	white-space: nowrap;
-}
+	&:before {
+		content: 'Click';
+		position: absolute;
+		left: 20px;
+		font-size: 14px;
+		color: green;
+		font-weight: bold;
+		opacity: 0;
+		transition: 0.2s opacity;
+		white-space: nowrap;
+	}
 
-.shadower-player-mouse.right-click,
-.shadower-player-mouse.click {
-	background-color: red;
-}
+	&.right-click,
+	&.click {
+		background-color: red;
+	}
 
-.shadower-player-mouse.click::before {
-	content: 'Click';
-	opacity: 1;
-}
+	&.click::before {
+		content: 'Click';
+		opacity: 1;
+	}
 
-.shadower-player-mouse.right-click::before {
-	content: 'Right click';
-	opacity: 1;
-	color: red;
+	&.right-click::before {
+		content: 'Right click';
+		opacity: 1;
+		color: red;
+	}
 }
 
 .shadower-focus {
@@ -97,37 +97,70 @@
 	background-color: #ddd;
 	box-sizing: border-box;
 	padding: 10px;
-}
 
-.shadower-player-buttons {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 0px;
-}
+	.shadower-player-buttons {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 0px;
 
-.shadower-player-panel .sh-button {
-	background: #333333;
-	color: #fff;
-	line-height: 25px;
-	padding: 0 10px;
-	margin: 0 5px;
-	cursor: pointer;
-	border-radius: 3px;
-}
+		.sh-button {
+			background: #333333;
+			color: #fff;
+			line-height: 25px;
+			padding: 0 10px;
+			margin: 0 5px;
+			cursor: pointer;
+			border-radius: 3px;
+			min-width: 30px;
+			height: 30px;
+			background-size 12px
+			background-repeat no-repeat
+			background-position center
+			transition 0.2s background-size, .4s background-color
 
-.shadower-player-panel .speed-playing {
-	width: 150px;
-	display: flex;
-}
+			&#start {
+				background-image url(../icons/play.svg)
+			}
 
-.shadower-player-panel .speed-playing .speed-title {
-	padding: 0 15px;
-	font-weight: bold;
-}
+			&#stop {
+				background-image url(../icons/stop.svg)
+			}
 
-.shadower-player-panel .sh-button.active {
-	background-color: #2621af;
+			&#pause {
+				background-image url(../icons/pause.svg)
+			}
+
+			&#record {
+				background-image url(../icons/rec.svg)
+			}
+
+			&:hover {
+				background-color: #555;
+				background-size 10px
+			}
+
+			&.active {
+				background-color: #2621af;
+
+				&#record {
+					background-image url(../icons/stop-rec.svg)
+				}
+			}
+		}
+
+		.speed-playing {
+			width: 150px;
+			display: flex;
+
+			.speed-title {
+				padding: 0 15px;
+				font-weight: bold;
+			}
+		}
+
+	}
+
 }
 
 .shadower-palyer-range {
@@ -149,18 +182,18 @@
 .shadower-player-slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 20px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
 	border-radius: 50%;
 	background: #2621af;
 	cursor: pointer;
 }
 
 .shadower-player-slider::-moz-range-thumb {
-	width: 25px;
-	height: 25px;
+	width: 16px;
+	height: 16px;
 	border-radius: 50%;
-	background: #4CAF50;
+	background: #2621af;
 	cursor: pointer;
 }
 
@@ -191,24 +224,27 @@
 	background-color: rgba(255, 0, 10, 0.7);
 }
 
-.shadower-player-range .range-grid {
-	display: flex;
-	justify-content: space-between;
+.shadower-player-range {
+	.range-grid {
+		display: flex;
+		justify-content: space-between;
+
+		& > div {
+			font-size: 12px;
+			font-weight: bold;
+			padding-top: 8px;
+			position: relative;
+
+			&:before {
+				content: '';
+				width: 2px;
+				height: 4px;
+				background-color: #3c3c3c;
+				position: absolute;
+				left: 50%;
+				top: 4px;
+			}
+		}
+	}
 }
 
-.shadower-player-range .range-grid > div {
-	font-size: 12px;
-	font-weight: bold;
-	padding-top: 8px;
-	position: relative;
-}
-
-.shadower-player-range .range-grid > div::before {
-	content: '';
-	width: 2px;
-	height: 4px;
-	background-color: #3c3c3c;
-	position: absolute;
-	left: 50%;
-	top: 4px;
-}

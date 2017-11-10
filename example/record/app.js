@@ -1,6 +1,6 @@
 var logger = new Shadower.VisualLoging(document.getElementById('divLog'));
 
-var shadowInstance = new Shadower.Folow(
+var shadowInstance = new Shadower.Follow(
 	{
 		followContainerId: 'myFormContainer', // главный контейре в котором все происходит
 		id: [  // массив ид полей за которыми следим

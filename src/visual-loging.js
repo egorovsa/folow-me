@@ -1,4 +1,4 @@
-import './css/shadower.css';
+import './css/shadower.styl';
 
 export class VisualLoging {
 	constructor(container) {

@@ -34,10 +34,11 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css/,
+				test: /\.styl/,
 				loaders: [
 					'style-loader',
-					'css-loader'
+					'css-loader',
+					'stylus-loader',
 				]
 			},{
 				test: /\.js/,
@@ -49,6 +50,9 @@ module.exports = {
 					],
 					"plugins": ["transform-class-properties"]
 				}
+			},{
+				test: /\.(jpe?g|png|gif|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+				use: 'base64-inline-loader?limit=150000&name=[name].[ext]'
 			}
 		]
 	},
@@ -59,27 +63,27 @@ module.exports = {
 				to: __dirname + '/dist/'
 			}
 		]),
-		new webpack.LoaderOptionsPlugin({
-			minimize: true,
-			debug: false
-		}),
-		new webpack.DefinePlugin({
-			'process.env': {
-				'NODE_ENV': JSON.stringify('production')
-			}
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			beautify: false,
-			mangle: {
-				screw_ie8: true,
-				keep_fnames: true
-			},
-			compress: {
-				screw_ie8: true,
-				warnings: false
-			},
-			comments: false
-		})
+		// new webpack.LoaderOptionsPlugin({
+		// 	minimize: true,
+		// 	debug: false
+		// }),
+		// new webpack.DefinePlugin({
+		// 	'process.env': {
+		// 		'NODE_ENV': JSON.stringify('production')
+		// 	}
+		// }),
+		// new webpack.optimize.UglifyJsPlugin({
+		// 	beautify: false,
+		// 	mangle: {
+		// 		screw_ie8: true,
+		// 		keep_fnames: true
+		// 	},
+		// 	compress: {
+		// 		screw_ie8: true,
+		// 		warnings: false
+		// 	},
+		// 	comments: false
+		// })
 	]
 
 };

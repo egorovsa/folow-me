@@ -1,4 +1,4 @@
-import './css/shadower.css';
+import './css/shadower.styl';
 
 import {FollowPlayer} from './shadower-player';
 import {VisualLoging} from './visual-loging';
@@ -6,7 +6,7 @@ import {VisualLoging} from './visual-loging';
 export {FollowPlayer};
 export {VisualLoging};
 
-export class Folow {
+export class Follow {
 	constructor(initialObject) {
 		this.followContainer = initialObject.followContainerId ? document.getElementById(initialObject.followContainerId) : null;
 
@@ -61,7 +61,7 @@ export class Folow {
 		if (this.followWindowEvents) {
 			window.addEventListener('blur', this.sendEvent);
 			window.addEventListener('focus', this.sendEvent);
-			// this.followContainer.addEventListener('mousemove', this.sendEvent);
+			this.followContainer.addEventListener('mousemove', this.sendEvent);
 			window.addEventListener('scroll', this.sendEvent);
 		}
 	}

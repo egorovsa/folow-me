@@ -14,7 +14,7 @@ var playerInstance = new Shadower.FollowPlayer({
 	speedRange: 'speedRange'
 });
 
-var shadowInstance = new Shadower.Folow(
+var shadowInstance = new Shadower.Follow(
 	{
 		followContainerId: 'myFormContainer',
 		id: [
@@ -47,12 +47,12 @@ var recButton = document.getElementById('record');
 recButton.addEventListener('click', function () {
 	if (shadowInstance.isRecord()) {
 		shadowInstance.stop();
-		recButton.innerHTML = 'REC';
+		recButton.className = 'sh-button';
 		playerInstance.addRecord(recorded);
 	} else {
 		recorded = [];
 		shadowInstance.start();
-		recButton.innerHTML = 'STOP';
+		recButton.className = 'sh-button active';
 	}
 });
 
