@@ -87,9 +87,28 @@ export class Follow {
 		}
 	}
 
-	prepareEventObject(e, customEvent, customData) {
+	getKeyMap(e) {
+		let commandKey = e.metaKey;
+		let ctrlKey = e.ctrlKey;
+		let altKey = e.ctrlKey;
+		let shiftKey = e.shiftKey;
+		let key = e.key;
+		let shortCut = '';
 
-		console.log(e);
+		let isKeyMeta = e.key === 'Shift' || e.key === 'Meta' || e.key === 'Ctrl' || e.key === 'Alt';
+
+		if (key && (shiftKey || ctrlKey || commandKey || altKey) && !isKeyMeta) {
+			shortCut += commandKey ? 'Cmd+' : '';
+			shortCut += shiftKey ? 'Shift+' : '';
+			shortCut += ctrlKey ? 'Ctrl+' : '';
+			shortCut += altKey ? 'Alt+' : '';
+			shortCut += key;
+		}
+
+		return shortCut;
+	}
+
+	prepareEventObject(e, customEvent, customData) {
 		let dateNow = Date.now();
 		let type = customEvent ? customEvent : e.type;
 		let tag = e.target.tagName ? e.target.tagName : 'window';
@@ -112,7 +131,8 @@ export class Follow {
 			symbol: e.type === 'keyup' && e.key ? e.key : null,
 			scrollTop: window.pageYOffset,
 			scrollLeft: window.pageXOffset,
-			value: type === 'keyup' ? e.target.value : ''
+			value: type === 'keyup' ? e.target.value : '',
+			shortCut: this.getKeyMap(e),
 			// e: e
 		};
 
@@ -120,6 +140,7 @@ export class Follow {
 			this.newObjectCb(object);
 		}
 
+		console.log(object);
 		return object;
 	}
 
