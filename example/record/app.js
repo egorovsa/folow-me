@@ -35,11 +35,11 @@ var recButton = document.getElementById('record');
 recButton.addEventListener('click', function () {
 	if (shadowInstance.isRecord()) {
 		shadowInstance.stop();
-		recButton.innerHTML = 'REC';
+		recButton.className = 'sh-button';
 	} else {
 		recorded = [];
 		shadowInstance.start();
-		recButton.innerHTML = 'STOP';
+		recButton.className = 'sh-button active';
 	}
 });
 
