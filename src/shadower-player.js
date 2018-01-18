@@ -70,7 +70,6 @@ export class FollowPlayer {
 		return child;
 	}
 
-
 	updateRange() {
 		if (this.range) {
 			this.range.min = 0;
@@ -156,19 +155,23 @@ export class FollowPlayer {
 		}
 
 		if (this.range) {
-			this.range.addEventListener('input', (e) => {
-				this.setStatePlayer(+e.target.value);
+			['change', 'input'].forEach((eventName) => {
+				this.range.addEventListener(eventName, (e) => {
+					this.setStatePlayer(+e.target.value);
+				});
 			});
 		}
 
 		if (this.speedRange) {
-			this.speedRange.addEventListener('input', (e) => {
-				this.currentRatioSpeed = +e.target.value;
-				let title = document.getElementById('speedTitle');
+			['change', 'input'].forEach((eventName) => {
+				this.speedRange.addEventListener(eventName, (e) => {
+					this.currentRatioSpeed = +e.target.value;
+					let title = document.getElementById('speedTitle');
 
-				if (title) {
-					title.innerHTML = e.target.value + 'x';
-				}
+					if (title) {
+						title.innerHTML = e.target.value + 'x';
+					}
+				});
 			});
 		}
 	}

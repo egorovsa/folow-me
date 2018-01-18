@@ -29,7 +29,7 @@ var shadowInstance = new Shadower.Follow(
 			'click',
 			'focus',
 			'blur',
-			'keydown',
+			'keyup',
 			'contextmenu',
 		],
 		newObjectCb: function (object) {
