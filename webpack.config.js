@@ -72,7 +72,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.styl/,
+				test: /\.(css|styl)/,
 				loaders: [
 					'style-loader',
 					'css-loader',

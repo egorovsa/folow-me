@@ -18,6 +18,8 @@
     "base64-inline-loader": "^1.1.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",
+    "rangeslider-pure": "^0.4.4",
+    "rangeslider.js": "^2.3.2",
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
