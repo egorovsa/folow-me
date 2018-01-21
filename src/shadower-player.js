@@ -35,39 +35,38 @@ export class FollowPlayer {
 				startEvent: ['mousedown', 'touchstart', 'pointerdown'],
 				moveEvent: ['mousemove', 'touchmove', 'pointermove'],
 				endEvent: ['mouseup', 'touchend', 'pointerup'],
-				// min: null,          // Number , 0
-				// max: null,          // Number, 100
-				// step: null,         // Number, 1
-				// value: 0,        // Number, center of slider
-				// buffer: null,       // Number, in percent, 0 by default
-				// stick: null,        // [Number stickTo, Number stickRadius] : use it if handle should stick to stickTo-th value in stickRadius
-				// borderRadius: 10,   // Number, if you use buffer + border-radius in css for looks good,
-				onInit: () => {
-
-				},
-				onSlideStart: function (position, value) {
-					console.info('onSlideStart', 'position: ' + position, 'value: ' + value);
-				},
 				onSlide: (position, value) => {
 					this.setStatePlayer(+position);
-					console.log('onSlide', 'position: ' + position, 'value: ' + value);
-				},
-				onSlideEnd: function (position, value) {
-					console.warn('onSlideEnd', 'position: ' + position, 'value: ' + value);
 				}
 			});
 
 			this.updateRange();
-
-			//
-			// ['change', 'input'].forEach((eventName) => {
-			// 	this.range.addEventListener(eventName, (e) => {
-			// 		this.setStatePlayer(+e.target.value);
-			// 	});
-			// });
 		}
 
+		if (this.speedRange) {
 
+			rangeSlider.create(this.speedRange, {
+				polyfill: true,     // Boolean, if true, custom markup will be created
+				rangeClass: 'rangeSlider',
+				disabledClass: 'rangeSlider--disabled',
+				fillClass: 'rangeSlider__fill',
+				bufferClass: 'rangeSlider__buffer',
+				handleClass: 'rangeSlider__handle',
+				startEvent: ['mousedown', 'touchstart', 'pointerdown'],
+				moveEvent: ['mousemove', 'touchmove', 'pointermove'],
+				endEvent: ['mouseup', 'touchend', 'pointerup'],
+				min: 1,
+				max: 5,
+				onSlide: (position, value) => {
+					this.currentRatioSpeed = +position;
+					let title = document.getElementById('speedTitle');
+
+					if (title) {
+						title.innerHTML = position + 'x';
+					}
+				}
+			});
+		}
 	}
 
 	showNotification(text, danger) {
@@ -213,18 +212,6 @@ export class FollowPlayer {
 		}
 
 
-		if (this.speedRange) {
-			['change', 'input'].forEach((eventName) => {
-				this.speedRange.addEventListener(eventName, (e) => {
-					this.currentRatioSpeed = +e.target.value;
-					let title = document.getElementById('speedTitle');
-
-					if (title) {
-						title.innerHTML = e.target.value + 'x';
-					}
-				});
-			});
-		}
 	}
 
 	start = () => {
