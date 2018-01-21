@@ -18,11 +18,56 @@ export class FollowPlayer {
 		this.setEvents();
 		this.createMouse();
 		this.started = false;
-		this.updateRange();
+
 		this.notificationTimerId = null;
 		this.rangeGrid = document.getElementById('rangeGrid') ? document.getElementById('rangeGrid') : null;
 		this.currentSpeed = 10;
 		this.currentRatioSpeed = 1;
+
+		if (this.range) {
+			rangeSlider.create(this.range, {
+				polyfill: true,     // Boolean, if true, custom markup will be created
+				rangeClass: 'rangeSlider',
+				disabledClass: 'rangeSlider--disabled',
+				fillClass: 'rangeSlider__fill',
+				bufferClass: 'rangeSlider__buffer',
+				handleClass: 'rangeSlider__handle',
+				startEvent: ['mousedown', 'touchstart', 'pointerdown'],
+				moveEvent: ['mousemove', 'touchmove', 'pointermove'],
+				endEvent: ['mouseup', 'touchend', 'pointerup'],
+				// min: null,          // Number , 0
+				// max: null,          // Number, 100
+				// step: null,         // Number, 1
+				// value: 0,        // Number, center of slider
+				// buffer: null,       // Number, in percent, 0 by default
+				// stick: null,        // [Number stickTo, Number stickRadius] : use it if handle should stick to stickTo-th value in stickRadius
+				// borderRadius: 10,   // Number, if you use buffer + border-radius in css for looks good,
+				onInit: () => {
+
+				},
+				onSlideStart: function (position, value) {
+					console.info('onSlideStart', 'position: ' + position, 'value: ' + value);
+				},
+				onSlide: (position, value) => {
+					this.setStatePlayer(+position);
+					console.log('onSlide', 'position: ' + position, 'value: ' + value);
+				},
+				onSlideEnd: function (position, value) {
+					console.warn('onSlideEnd', 'position: ' + position, 'value: ' + value);
+				}
+			});
+
+			this.updateRange();
+
+			//
+			// ['change', 'input'].forEach((eventName) => {
+			// 	this.range.addEventListener(eventName, (e) => {
+			// 		this.setStatePlayer(+e.target.value);
+			// 	});
+			// });
+		}
+
+
 	}
 
 	showNotification(text, danger) {
@@ -76,18 +121,27 @@ export class FollowPlayer {
 
 	updateRange() {
 		if (this.range) {
-			this.range.min = 0;
+
+			let max = 1000;
 
 			if (this.recordedObjects.length > 0) {
-				this.range.max = this.recordedObjects[this.recordedObjects.length - 1].timeSpent;
+				max = this.recordedObjects[this.recordedObjects.length - 1].timeSpent;
 			}
 
-			this.range.value = this.currentTimeMs;
+			this.range.rangeSlider.update({
+				min: 0,
+				max: max,
+				value: this.currentTimeMs
+			}, true);
+
 			this.setStatePlayer(this.currentTimeMs);
 
 			if (this.rangeGrid) {
-				let count = this.range.max > 5000 ? 5 : (this.range.max / 1000).toFixed(0);
-				let times = Math.round(parseInt(this.range.max) / 1000) / count;
+				console.log(max);
+				let count = max > 5000 ? 5 : (max / 1000).toFixed(0);
+				let times = Math.round(parseInt(max) / 1000) / count;
+
+				console.log(count, times);
 
 				for (let i = 0; i <= count; i++) {
 					this.rangeGrid.appendChild(this.getRangeChild(i * times * 1000));
@@ -158,47 +212,6 @@ export class FollowPlayer {
 			});
 		}
 
-		if (this.range) {
-			rangeSlider.create(this.range, {
-				polyfill: true,     // Boolean, if true, custom markup will be created
-				rangeClass: 'rangeSlider',
-				disabledClass: 'rangeSlider--disabled',
-				fillClass: 'rangeSlider__fill',
-				bufferClass: 'rangeSlider__buffer',
-				handleClass: 'rangeSlider__handle',
-				startEvent: ['mousedown', 'touchstart', 'pointerdown'],
-				moveEvent: ['mousemove', 'touchmove', 'pointermove'],
-				endEvent: ['mouseup', 'touchend', 'pointerup'],
-				vertical: false,    // Boolean, if true slider will be displayed in vertical orientation
-				min: null,          // Number , 0
-				max: null,          // Number, 100
-				step: null,         // Number, 1
-				value: null,        // Number, center of slider
-				buffer: null,       // Number, in percent, 0 by default
-				stick: null,        // [Number stickTo, Number stickRadius] : use it if handle should stick to stickTo-th value in stickRadius
-				borderRadius: 10,   // Number, if you use buffer + border-radius in css for looks good,
-				onInit: function () {
-					console.info('onInit')
-				},
-				onSlideStart: function (position, value) {
-					console.info('onSlideStart', 'position: ' + position, 'value: ' + value);
-				},
-				onSlide: function (position, value) {
-					console.log('onSlide', 'position: ' + position, 'value: ' + value);
-				},
-				onSlideEnd: function (position, value) {
-					console.warn('onSlideEnd', 'position: ' + position, 'value: ' + value);
-				}
-			});
-
-
-			//
-			// ['change', 'input'].forEach((eventName) => {
-			// 	this.range.addEventListener(eventName, (e) => {
-			// 		this.setStatePlayer(+e.target.value);
-			// 	});
-			// });
-		}
 
 		if (this.speedRange) {
 			['change', 'input'].forEach((eventName) => {
@@ -238,7 +251,9 @@ export class FollowPlayer {
 		clearTimeout(this.animationRequestId);
 
 		if (this.range) {
-			this.range.value = 0;
+			this.range.rangeSlider.update({
+				value: 0
+			}, true);
 		}
 	};
 
@@ -246,7 +261,9 @@ export class FollowPlayer {
 		this.currentTimeMs += (this.currentSpeed * this.currentRatioSpeed);
 
 		if (this.range) {
-			this.range.value = this.currentTimeMs;
+			this.range.rangeSlider.update({
+				value: this.currentTimeMs
+			}, true);
 		}
 
 		this.animationRequestId = setTimeout(() => {
