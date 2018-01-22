@@ -140,7 +140,6 @@ export class Follow {
 			this.newObjectCb(object);
 		}
 
-		console.log(object);
 		return object;
 	}
 

@@ -55,8 +55,6 @@ export class FollowPlayer {
 				startEvent: ['mousedown', 'touchstart', 'pointerdown'],
 				moveEvent: ['mousemove', 'touchmove', 'pointermove'],
 				endEvent: ['mouseup', 'touchend', 'pointerup'],
-				min: 1,
-				max: 5,
 				onSlide: (position, value) => {
 					this.currentRatioSpeed = +position;
 					let title = document.getElementById('speedTitle');
@@ -85,6 +83,14 @@ export class FollowPlayer {
 				this.removeClass(this.shadowerNotification, 'active');
 			}, 1500);
 		}
+	}
+
+	setCurrentTimeMs(time) {
+		this.currentTimeMs = time;
+
+		this.range.rangeSlider.update({
+			value: this.currentTimeMs
+		}, true);
 	}
 
 	addRecord(record) {
@@ -121,7 +127,7 @@ export class FollowPlayer {
 	updateRange() {
 		if (this.range) {
 
-			let max = 1000;
+			let max = 0;
 
 			if (this.recordedObjects.length > 0) {
 				max = this.recordedObjects[this.recordedObjects.length - 1].timeSpent;
@@ -136,16 +142,16 @@ export class FollowPlayer {
 			this.setStatePlayer(this.currentTimeMs);
 
 			if (this.rangeGrid) {
-				console.log(max);
 				let count = max > 5000 ? 5 : (max / 1000).toFixed(0);
-				let times = Math.round(parseInt(max) / 1000) / count;
+				this.rangeGrid.innerHTML = '';
 
-				console.log(count, times);
+				if (count > 0) {
+					let times = Math.round(parseInt(max) / 1000) / count;
 
-				for (let i = 0; i <= count; i++) {
-					this.rangeGrid.appendChild(this.getRangeChild(i * times * 1000));
+					for (let i = 0; i <= count; i++) {
+						this.rangeGrid.appendChild(this.getRangeChild(i * times * 1000));
+					}
 				}
-
 			}
 		}
 	}
