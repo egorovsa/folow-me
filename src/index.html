@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-	<style>
-		body{
-			font-family: 'Open Sans', sans-serif;
-		}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
 
-		.my-form-container {
-			width: 500px;
-			margin: 0 auto;
-			background: #ddd;
-			padding: 15px;
-		}
-	</style>
+        .my-form-container {
+            width: 500px;
+            margin: 0 auto;
+            background: #ddd;
+            padding: 15px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="my-form-container" id="myFormContainer">
-	<input type="text" id="firstInput"/><br/><br/>
-	<textarea id="followTextarea" cols="50" rows="10"></textarea>
+    <input type="text" id="firstInput"/><br/><br/>
+    <textarea id="followTextarea" cols="50" rows="10"></textarea>
 </div>
 
 <div id="divLog"></div>
@@ -29,26 +29,26 @@
 <div class="shadower-notification" id="shadowerNotification"></div>
 
 <div class="shadower-player-panel">
-	<div class="shadower-player-buttons">
-		<div class="sh-button" id="record"></div>
-		<div class="sh-button" id="start"></div>
-		<div class="sh-button" id="pause"></div>
-		<div class="sh-button" id="stop"></div>
-		<div class="speed-playing">
-			<div class="speed-title" id="speedTitle">
-				1x
-			</div>
-			<div>
-				<input type="range" min="1" max="15" value="1" id="speedRange">
-			</div>
-		</div>
-	</div>
-	<div class="shadower-player-range">
-		<input type="range" min="1" max="100" id="myRange">
-		<div class="range-grid" id="rangeGrid">
+    <div class="shadower-player-buttons">
+        <div class="sh-button" id="record"></div>
+        <div class="sh-button" id="start"></div>
+        <div class="sh-button" id="pause"></div>
+        <div class="sh-button" id="stop"></div>
+        <div class="speed-playing">
+            <div class="speed-title" id="speedTitle">
+                1x
+            </div>
+            <div>
+                <input type="range" min="1" max="15" value="1" id="speedRange">
+            </div>
+        </div>
+    </div>
+    <div class="shadower-player-range">
+        <input type="range" min="1" max="100" id="myRange">
+        <div class="range-grid" id="rangeGrid">
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 
 <script src="shadower.js"></script>
