@@ -18,6 +18,7 @@ var shadowInstance = new Shadower.Follow(
             'blur',
             'keyup',
             'contextmenu',
+            'scroll'
         ],
         newObjectCb: function (object) { // колбек каждого события, возвращает каждый раз новое событие
             if (logger) {
